@@ -242,10 +242,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_frames', '-n', type=int, dest='num_frames', default=-1,
         help='Number of frames to run for, -1 to not terminate')
-    parser.add_argument('--host', '-h',
+    parser.add_argument('--host', '-rh',
         dest='REDIS_HOST', default='10.0.0.2',
         help="IP address of server host.")
-    parser.add_argument('--auth', '-a',
+    parser.add_argument('--auth', '-ra',
         dest="REDIS_AUTH", default='neuromorph', help="Password for redis server")
     parser.add_argument('--verbose', '-v', type=bool, dest="VERBOSE", default=True,
         help="Print joy score to stdout")

@@ -1,8 +1,9 @@
-# Amy G. Dala: Functional Amygdala Modeling Distributed Across Multiple Neuromorphics Hardwares
+# Amy G. Dala:
+## Functional Amygdala Modeling Distributed Across Multiple Neuromorphics Hardwares
 
 ---
 
-## Instructions for Running Amy
+### Instructions for Running Amy
 0.	Start Redis Server with correct configuration: **(Terminal 0: Redis Server)**
 	```
 	$ redis-server /redis-stable/redis.conf
