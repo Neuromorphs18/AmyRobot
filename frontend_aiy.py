@@ -251,7 +251,7 @@ def main():
         help="Print joy score to stdout")
     args = parser.parse_args()
 
-    r = redis.StrictRedis(host=args.REDIS_HOST, password=REDIS_AUTH)
+    r = redis.StrictRedis(host=args.REDIS_HOST, password=args.REDIS_AUTH)
 
     device = get_aiy_device_name()
     if not device or not 'Vision' in device:
