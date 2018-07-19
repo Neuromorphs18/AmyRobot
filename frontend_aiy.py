@@ -31,8 +31,6 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-#r = redis.StrictRedis (host='10.0.0.6',password='neuromorph')
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -233,8 +231,6 @@ class JoyDetector(object):
                         if self._done.is_set() or i == num_frames:
                             break
         finally:
-            #bd_sock.close()
-
             player.stop()
 
             player.join()
@@ -243,31 +239,27 @@ class JoyDetector(object):
 
 def main():
 
-    r = redis.StrictRedis (host ='10.0.0.6',password='neuromorph')
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_frames', '-n', type=int, dest='num_frames', default=-1,
         help='Number of frames to run for, -1 to not terminate')
-    parser.add_argument('--bluetooth_addr', '-bda',
-        dest='BD_ADDR', default="B4:AE:2B:E2:72:A5",
-        help="Bluetooth address to send data to")
-    parser.add_argument('--bluetooth_port', '-bdp', type=int,
-        dest="BD_PORT", default=1, help="Bluetooth port to send out data on")
+    parser.add_argument('--host', '-h',
+        dest='REDIS_HOST', default='10.0.0.2',
+        help="IP address of server host.")
+    parser.add_argument('--auth', '-a',
+        dest="REDIS_AUTH", default='neuromorph', help="Password for redis server")
     parser.add_argument('--verbose', '-v', type=bool, dest="VERBOSE", default=True,
         help="Print joy score to stdout")
     args = parser.parse_args()
+
+    r = redis.StrictRedis(host=args.REDIS_HOST, password=REDIS_AUTH)
 
     device = get_aiy_device_name()
     if not device or not 'Vision' in device:
         logger.error('AIY VisionBonnet is not detected.')
         return
-#
-#    sock = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-#   sock.connect((args.BD_ADDR, args.BD_PORT))
 
     detector = JoyDetector()
     detector.run (r,args.num_frames,args.VERBOSE)
-    
-#    detector.run(sock, args.num_frames,args.VERBOSE)
 
 if __name__ == '__main__':
     main()
