@@ -3,7 +3,7 @@
 ---
 
 ## Instructions for Running Amy
-0.	Start Redis Server with correct configuration:
+0.	Start Redis Server with correct configuration: **(Terminal 0: Redis Server)**
 	```
 	$ redis-server /redis-stable/redis.conf
 	```
@@ -56,7 +56,7 @@
 	```
 	$ nengo --backend nengo_brainstorm --port 8082 central_brd.py
 	```
-	
+
 9.	Start various nengo GUIs!
 
 To record data while running, make sure that there are no data files in the directory and simply replace ".py" with "_record.py" for each module.
