@@ -83,14 +83,14 @@ with model:
     nengo.Connection(basal, RedisOut, transform=emotion_matrix)
 
     # save out data to files
-    fp_cortex = FileSpikeProbe('cortex_spike_data', size_in=cortex.n_neurons)
-    nengo.Connection(cortex.neurons, fp_cortex, synapse=None)
+    #fp_cortex = FileSpikeProbe('cortex_spike_data', size_in=cortex.n_neurons)
+    #nengo.Connection(cortex.neurons, fp_cortex, synapse=None)
     
     fpv_cortex = FileValueProbe('cortex_value', size_in=cortex.dimensions)
     nengo.Connection(cortex, fpv_cortex, synapse=0.1)
 
-    fp_basal = FileSpikeProbe('basal_spike_data', size_in=basal.n_neurons)
-    nengo.Connection(basal.neurons, fp_basal, synapse=None)
+    #fp_basal = FileSpikeProbe('basal_spike_data', size_in=basal.n_neurons)
+    #nengo.Connection(basal.neurons, fp_basal, synapse=None)
     
     fpv_basal = FileValueProbe('basal_value', size_in=basal.dimensions)
     nengo.Connection(basal, fpv_basal, synapse=0.1)
