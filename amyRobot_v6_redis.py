@@ -3,7 +3,7 @@ import numpy as np
 import ev3_nengo.ev3link
 import redis
 
-r = redis.StrictRedis(host='10.0.0.3',password='neuromorph')
+r = redis.StrictRedis(host='10.0.0.6',password='neuromorph')
 
 if not hasattr(ev3_nengo, 'link'):
     ev3_nengo.link = ev3_nengo.ev3link.EV3Link('10.0.0.9')

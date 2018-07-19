@@ -3,7 +3,7 @@ import numpy as np
 import nengo_loihi
 import redis
 
-r = redis.StrictRedis(host = '10.0.0.3',password='neuromorph')
+r = redis.StrictRedis(host = '10.0.0.6',password='neuromorph')
 
 model = nengo.Network()
 with model:
@@ -13,12 +13,6 @@ with model:
     def redis_lateral_in(t):
         global r
         lateral_in = float(r.get('lateral_in'))
-        # y = str(r.get('lateral_in'))
-        # if y.startswith('['):
-        #     y = y[1:-1]
-        # elif y.startswith("b'["):
-        #     y = y[3:-2]
-        # lateral_in = float(y)
         return lateral_in
     RedisIn = nengo.Node(redis_lateral_in,size_out=1)
 

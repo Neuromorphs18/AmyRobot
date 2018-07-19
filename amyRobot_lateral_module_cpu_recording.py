@@ -3,7 +3,7 @@ import numpy as np
 #import nengo_loihi
 import redis
 
-r = redis.StrictRedis(host = '10.0.0.3',password='neuromorph')
+r = redis.StrictRedis(host = '10.0.0.6',password='neuromorph')
 
 model = nengo.Network()
 with model:
