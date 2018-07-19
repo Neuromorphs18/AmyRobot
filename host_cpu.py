@@ -3,7 +3,7 @@ import numpy as np
 import ev3_nengo.ev3link
 import redis
 
-r = redis.StrictRedis(host='10.0.0.6',password='neuromorph')
+r = redis.StrictRedis(host='10.0.0.2',password='neuromorph')
 
 if not hasattr(ev3_nengo, 'link'):
     ev3_nengo.link = ev3_nengo.ev3link.EV3Link('10.0.0.9')
@@ -215,14 +215,20 @@ with model:
         return
     def lat_redis_2_central(t):
         global r
-        lfr2c0 = float(r.get('lateral_2_central_0'))
-        lfr2c1 = float(r.get('lateral_2_central_1'))
-        lfr2c2 = float(r.get('lateral_2_central_2'))
+        try:
+            lfr2c0 = float(r.get('lateral_2_central_0'))
+            lfr2c1 = float(r.get('lateral_2_central_1'))
+            lfr2c2 = float(r.get('lateral_2_central_2'))
+        except:
+            lfr2c0 = lfr2c1 = lfr2c2 = 0
         return [lfr2c0, lfr2c1, lfr2c2]
     def lat_redis_2_basal(t):
         global r
-        lfr2b0 = float(r.get('lateral_2_basal_0'))
-        lfr2b1 = float(r.get('lateral_2_basal_1'))
+        try:
+            lfr2b0 = float(r.get('lateral_2_basal_0'))
+            lfr2b1 = float(r.get('lateral_2_basal_1'))
+        except:
+            lfr2b0 = lfr2b1 = 0
         return [lfr2b0, lfr2b1]
     lateral_in_redis = nengo.Node(lateral_2_redis, size_in=1)
     lateral_redis_central = nengo.Node(lat_redis_2_central, size_out=3)
@@ -235,9 +241,12 @@ with model:
         return
     def basal_from_redis(t):
         global r
-        bfr0 = float(r.get('basal_out_0'))
-        bfr1 = float(r.get('basal_out_1'))
-        bfr2 = float(r.get('basal_out_2'))
+        try:
+            bfr0 = float(r.get('basal_out_0'))
+            bfr1 = float(r.get('basal_out_1'))
+            bfr2 = float(r.get('basal_out_2'))
+        except:
+            bfr0 = bfr1 = bfr2 = 0
         basal_output = [bfr0, bfr1, bfr2]
         return basal_output
     basal_in_redis = nengo.Node(basal_2_redis, size_in=2)
@@ -251,9 +260,12 @@ with model:
         return
     def central_from_redis(t):
         global r
-        cfr0 = float(r.get('WTA_out_0'))
-        cfr1 = float(r.get('WTA_out_1'))
-        cfr2 = float(r.get('WTA_out_2'))
+        try:
+            cfr0 = float(r.get('WTA_out_0'))
+            cfr1 = float(r.get('WTA_out_1'))
+            cfr2 = float(r.get('WTA_out_2'))
+        except:
+            cfr0 = cfr1 = cfr2 = 0
         movement_vec = [cfr0, cfr1, cfr2]
         return movement_vec
     central_in_redis = nengo.Node(central_2_redis, size_in=3)
@@ -264,7 +276,11 @@ with model:
     # input stimuli
     def redis_input_func (t,x):
         global r
-        amy_joy = float(r.get('AmyJoyScore'))
+        
+        try:
+            amy_joy = float(r.get('AmyJoyScore'))
+        except:
+            amy_joy = 0
         return amy_joy
 
     low_stim = nengo.Node(redis_input_func, size_in=1)

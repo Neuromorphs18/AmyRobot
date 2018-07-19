@@ -3,7 +3,7 @@ import numpy as np
 import nengo_loihi
 import redis
 
-r = redis.StrictRedis(host = '10.0.0.6',password='neuromorph')
+r = redis.StrictRedis(host = '10.0.0.2',password='neuromorph')
 
 model = nengo.Network()
 with model:
@@ -36,15 +36,16 @@ with model:
     output_data = [[1,1],[-1,1],[0.5, -0.5],[0.5, -0.5],[0,0]]
     per_input = 1
 
+    # TODO:figure this whole thing out
     def fast_reaction(x):
         joy = x
         happy = 0
         distressed = 0
         calm = 0
 
-        if joy > 0.8:
+        if joy > 0.7:
             happy = 1
-        elif joy < -0.8:
+        elif joy < -0.7:
             distressed = 1
         else:
             calm = 0.2
