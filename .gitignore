@@ -1,0 +1,6 @@
+# ignore cache
+cache
+
+# ignore ipynb checkpoints
+.ipynb_checkpoints*
+
